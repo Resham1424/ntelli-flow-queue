@@ -1,73 +1,94 @@
-# Welcome to your Lovable project
+# IntelliQueue – Distributed Task Scheduling & Notification System
 
-## Project info
+## Project Overview
+IntelliQueue is a system that handles tasks asynchronously, allowing long or heavy operations to run in the background without making the user wait. Tasks like sending emails, generating reports, or processing data are added to a queue and executed later by a worker, simulating real-world asynchronous systems.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## Live Demo (Frontend)
+You can view the frontend of the project here:  
+[https://ntelli-flow-queue.lovable.app](https://ntelli-flow-queue.lovable.app)
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### Frontend
+- Built with **Lovable (React + TypeScript + Vite)**  
+- User-friendly interface for creating tasks  
+- Displays task status updates (pending, processing, completed)  
 
-Changes made via Lovable will be committed automatically to this repo.
+### Backend Simulation
+- Implemented in **Node.js**  
+- Tasks added to an **in-memory queue**  
+- Worker processes tasks sequentially  
+- Task lifecycle: `PENDING → PROCESSING → COMPLETED / FAILED`  
+- Retry mechanism implemented  
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Folder Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+ntelli-flow-queue/
+│── backend/ # Backend simulation
+│ └── index.js # Task queue + worker
+│── src/ # Lovable frontend
+│── README.md
 
-Follow these steps:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## How to Run Backend Simulation
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. **Clone the repository**
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+```bash
+git clone https://github.com/Resham1424/ntelli-flow-queue.git
 
-**Edit a file directly in GitHub**
+cd ntelli-flow-queue/backend
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+node index.js
 
-**Use GitHub Codespaces**
+Task added: { id: 1, taskType: 'Send Email', status: 'PENDING', retryCount: 0 }
+Processing task: 1
+Executing task: Send Email
+Task completed: 1
+How It Works
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Task Creation: Tasks are added via frontend or directly in backend simulation.
 
-## What technologies are used for this project?
+Queue: Tasks are stored in an in-memory queue.
 
-This project is built with:
+Worker Execution: A background worker processes one task at a time.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Status Updates: Each task goes through:
 
-## How can I deploy this project?
+PENDING
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+PROCESSING
 
-## Can I connect a custom domain to my Lovable project?
+COMPLETED or FAILED
 
-Yes, you can!
+Retries: Tasks are retried automatically up to 3 times if they fail.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Technologies Used
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Frontend: Lovable (React + TypeScript + Vite)
+
+Backend Simulation: Node.js (in-memory queue)
+
+Database: Not required for simulation (can integrate PostgreSQL/Redis in real implementation)
+
+Future Enhancements
+
+Connect frontend with real backend using APIs
+
+Store tasks in Redis/PostgreSQL for persistence
+
+Real-time notifications to users on task completion/failure
+
+Handle multiple workers for parallel task processing
+
+GitHub Repository
+
+https://github.com/Resham1424/ntelli-flow-queue
